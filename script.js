@@ -58,27 +58,17 @@ const revealObserver = new IntersectionObserver((entries) => {
 reveals.forEach(el => revealObserver.observe(el));
 
 // ===== HERO SLIDER =====
-const heroBgs = [
-  'https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=1600&q=80',
-  'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&q=80',
-  'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80',
-];
+const heroSlides = document.querySelectorAll('.hero__slide');
 let currentSlide = 0;
-const heroBg = document.querySelector('.hero__bg');
 
 function goToSlide(index) {
-  currentSlide = (index + heroBgs.length) % heroBgs.length;
-  heroBg.style.opacity = '0';
-  setTimeout(() => {
-    heroBg.style.backgroundImage = `url('${heroBgs[currentSlide]}')`;
-    heroBg.style.opacity = '1';
-  }, 350);
+  heroSlides[currentSlide].classList.remove('active');
+  currentSlide = (index + heroSlides.length) % heroSlides.length;
+  heroSlides[currentSlide].classList.add('active');
 }
 
 document.querySelector('.hero__arrow--prev')?.addEventListener('click', () => goToSlide(currentSlide - 1));
 document.querySelector('.hero__arrow--next')?.addEventListener('click', () => goToSlide(currentSlide + 1));
-document.getElementById('svc-prev')?.addEventListener('click', () => goToSlide(currentSlide - 1));
-document.getElementById('svc-next')?.addEventListener('click', () => goToSlide(currentSlide + 1));
 
 setInterval(() => goToSlide(currentSlide + 1), 5500);
 
